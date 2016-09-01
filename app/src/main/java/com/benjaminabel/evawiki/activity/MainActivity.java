@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.adapter.ArticlesAdapter;
+import com.benjaminabel.evawiki.fragment.ArticlesFragment;
 import com.benjaminabel.evawiki.model.Article;
 import com.benjaminabel.evawiki.model.ArticleResponse;
 import com.benjaminabel.evawiki.rest.ApiClient;
@@ -78,33 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static View setView(final View rootView, final Context context) {
-
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<ArticleResponse> call;
-        call = apiService.getAllArticles(25);
-        call.enqueue(new Callback<ArticleResponse>() {
-            @Override
-            public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
-                ArrayList<Article> articleList = new ArrayList<>(response.body().getArticles());
-                for (Article member : articleList){
-                    Log.i("Member name: ", String.valueOf(member));
-                }
-                ListView lv = (ListView) rootView.findViewById(R.id.section_label);
-                lv.setAdapter(new ArticlesAdapter(articleList, context));
-            }
-            @Override
-            public void onFailure(Call<ArticleResponse> call, Throwable t) {
-                Log.d("Error", t.toString());
-            }
-        });
-
-        return rootView;
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -128,43 +102,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            rootView = setView(rootView, getContext());
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -173,14 +114,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return ArticlesFragment.newInstance();
+                default:
+                    return ArticlesFragment.newInstance();
+            }
+
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 2;
         }
 
