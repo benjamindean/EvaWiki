@@ -13,6 +13,6 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @GET("Articles/List")
-    Call<ArticleResponse> getAllArticles(@Query("limit") int limit);
+    Call<ArticleResponse> getAllArticles(@Query("limit") int limit, @Query("category") String category);
 
 }
