@@ -19,6 +19,7 @@ import com.benjaminabel.evawiki.rest.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +27,9 @@ import retrofit2.Response;
 
 
 public class ArticlesFragment extends Fragment {
+
+    public ApiInterface apiService =
+            ApiClient.getClient().create(ApiInterface.class);
 
     public ArticlesFragment() {
     }
@@ -45,24 +49,24 @@ public class ArticlesFragment extends Fragment {
 
         final Bundle args = getArguments();
         final View view = inflater.inflate(R.layout.fragment_articles, container, false);
-        idsCallback callback = new idsCallback() {
+
+        getItemIds callback = new getItemIds() {
             @Override
             public void getIds(String ids) {
-                performFullRequest(ids, view, args);
+                performDetailsRequest(ids, view, args);
             }
         };
+
         performRequest(args, callback);
         return view;
     }
 
 
-    public interface idsCallback {
+    public interface getItemIds {
         void getIds(String ids);
     }
 
-    public void performRequest(Bundle args, final idsCallback callback) {
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+    public void performRequest(Bundle args, final getItemIds callback) {
 
         Call<ArticleResponse> call;
         call = apiService.getAllArticles(args.getInt("limit"), args.getString("category"));
@@ -85,9 +89,7 @@ public class ArticlesFragment extends Fragment {
         });
     }
 
-    public void performFullRequest(String ids, final View view, Bundle args) {
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+    public void performDetailsRequest(String ids, final View view, Bundle args) {
 
         Call<ArticleDetailsResponse> call;
         call = apiService.getAllArticlesDetails(ids, args.getInt("limit"), args.getString("category"));
@@ -96,8 +98,16 @@ public class ArticlesFragment extends Fragment {
             public void onResponse(Call<ArticleDetailsResponse> call, Response<ArticleDetailsResponse> response) {
                 Map<String, Article> map = response.body().getArticles();
                 ArrayList<Article> articleList = new ArrayList<>();
+                String regex = "\\/wiki\\/[0-9a-zA-z]+$";
+
+                Pattern patt = Pattern.compile(regex);
+
                 for (Map.Entry<String, Article> entry : map.entrySet()) {
-                    articleList.add(entry.getValue());
+                    Article item = entry.getValue();
+
+                    if(patt.matcher(item.getUrl()).matches()) {
+                        articleList.add(entry.getValue());
+                    }
                 }
                 ListView lv = (ListView) view.findViewById(R.id.section_label);
                 lv.setAdapter(new ArticlesAdapter(articleList, getContext()));
