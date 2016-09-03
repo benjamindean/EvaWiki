@@ -3,9 +3,6 @@ package com.benjaminabel.evawiki.rest;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by khazizovroman on 9/1/16.
- */
 
 public class ApiClient {
 

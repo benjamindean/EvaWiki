@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by khazizovroman on 9/1/16.
- */
 
 public class ArticleResponse {
 

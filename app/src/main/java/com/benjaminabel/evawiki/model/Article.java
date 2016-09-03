@@ -3,10 +3,6 @@ package com.benjaminabel.evawiki.model;
 import com.google.gson.annotations.SerializedName;
 
 
-/**
- * Created by khazizovroman on 9/1/16.
- */
-
 public class Article {
 
     @SerializedName("id")

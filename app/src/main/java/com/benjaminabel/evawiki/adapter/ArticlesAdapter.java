@@ -13,9 +13,6 @@ import com.benjaminabel.evawiki.model.Article;
 
 import java.util.ArrayList;
 
-/**
- * Created by khazizovroman on 9/1/16.
- */
 
 public class ArticlesAdapter extends ArrayAdapter<Article> {
 

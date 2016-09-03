@@ -24,6 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class ArticlesFragment extends Fragment {
 
     public ArticlesFragment() {
@@ -71,7 +72,7 @@ public class ArticlesFragment extends Fragment {
                 ArrayList<Article> articleList = new ArrayList<>(response.body().getArticles());
                 ArrayList<String> articleIds = new ArrayList<>();
 
-                for(Article article : articleList) {
+                for (Article article : articleList) {
                     articleIds.add(String.valueOf(article.getId()));
                 }
                 callback.getIds(TextUtils.join(",", articleIds));
@@ -95,8 +96,7 @@ public class ArticlesFragment extends Fragment {
             public void onResponse(Call<ArticleDetailsResponse> call, Response<ArticleDetailsResponse> response) {
                 Map<String, Article> map = response.body().getArticles();
                 ArrayList<Article> articleList = new ArrayList<>();
-                for (Map.Entry<String, Article> entry : map.entrySet())
-                {
+                for (Map.Entry<String, Article> entry : map.entrySet()) {
                     articleList.add(entry.getValue());
                 }
                 ListView lv = (ListView) view.findViewById(R.id.section_label);

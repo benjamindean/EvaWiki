@@ -17,6 +17,7 @@ import android.view.View;
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.fragment.ArticlesFragment;
 
+
 public class MainActivity extends AppCompatActivity {
 
     /**
