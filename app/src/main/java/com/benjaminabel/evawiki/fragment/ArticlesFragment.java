@@ -1,6 +1,7 @@
 package com.benjaminabel.evawiki.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.benjaminabel.evawiki.R;
+import com.benjaminabel.evawiki.activity.MainActivity;
 import com.benjaminabel.evawiki.adapter.ArticlesAdapter;
 import com.benjaminabel.evawiki.model.Article;
 import com.benjaminabel.evawiki.model.ArticleDetailsResponse;
@@ -31,6 +33,8 @@ public class ArticlesFragment extends Fragment {
     public ApiInterface apiService =
             ApiClient.getClient().create(ApiInterface.class);
 
+    public View view;
+
     public ArticlesFragment() {
     }
 
@@ -48,16 +52,19 @@ public class ArticlesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final Bundle args = getArguments();
-        final View view = inflater.inflate(R.layout.fragment_articles, container, false);
 
-        final getItemIds callback = new getItemIds() {
-            @Override
-            public void getIds(String ids) {
-                performDetailsRequest(ids, view);
-            }
-        };
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_articles, container, false);
 
-        performRequest(args, callback);
+            final getItemIds callback = new getItemIds() {
+                @Override
+                public void getIds(String ids) {
+                    performDetailsRequest(ids, view);
+                }
+            };
+
+            performRequest(args, callback);
+        }
         return view;
     }
 

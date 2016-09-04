@@ -10,12 +10,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.fragment.ArticlesFragment;
+
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setTabMode(tabLayout.MODE_SCROLLABLE);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -97,18 +101,19 @@ public class MainActivity extends AppCompatActivity {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+        public int LIMIT = 20;
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ArticlesFragment.newInstance("Evangelions", 20);
+                    return ArticlesFragment.newInstance("Evangelions", LIMIT);
                 case 1:
-                    return ArticlesFragment.newInstance("Characters", 20);
+                    return ArticlesFragment.newInstance("Characters", LIMIT);
                 case 2:
-                    return ArticlesFragment.newInstance("Movies", 20);
+                    return ArticlesFragment.newInstance("Movies", LIMIT);
                 case 3:
-                    return ArticlesFragment.newInstance("Angels", 20);
+                    return ArticlesFragment.newInstance("Angels", LIMIT);
                 default:
                     return null;
             }

@@ -2,6 +2,7 @@ package com.benjaminabel.evawiki.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,14 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
         //viewHolder.url.setText(article.getUrl());
         //viewHolder.article_id.setText(String.valueOf(article.getId()));
         viewHolder.abs.setText(article.getAbs());
-        Picasso.with(getContext())
-                .load(article.getThumbnail())
-                .into(viewHolder.thumb);
+        if(article.getThumbnail() != null) {
+            Picasso.with(getContext())
+                    .load(article.getThumbnail())
+                    .transform(new CircleTransform())
+                    .into(viewHolder.thumb);
+        } else {
+            viewHolder.thumb.setVisibility(View.GONE);
+        }
 
         return view;
     }
