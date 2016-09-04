@@ -102,27 +102,35 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ArticlesFragment.newInstance("", 40);
+                    return ArticlesFragment.newInstance("Evangelions", 20);
                 case 1:
-                    return ArticlesFragment.newInstance("Characters", 40);
+                    return ArticlesFragment.newInstance("Characters", 20);
+                case 2:
+                    return ArticlesFragment.newInstance("Movies", 20);
+                case 3:
+                    return ArticlesFragment.newInstance("Angels", 20);
                 default:
-                    return ArticlesFragment.newInstance("", 40);
+                    return null;
             }
 
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Articles";
+                    return "Evangelions";
                 case 1:
                     return "Characters";
+                case 2:
+                    return "Movies";
+                case 3:
+                    return "Angels";
             }
             return null;
         }

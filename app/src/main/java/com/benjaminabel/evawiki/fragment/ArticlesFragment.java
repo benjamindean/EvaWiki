@@ -50,10 +50,10 @@ public class ArticlesFragment extends Fragment {
         final Bundle args = getArguments();
         final View view = inflater.inflate(R.layout.fragment_articles, container, false);
 
-        getItemIds callback = new getItemIds() {
+        final getItemIds callback = new getItemIds() {
             @Override
             public void getIds(String ids) {
-                performDetailsRequest(ids, view, args);
+                performDetailsRequest(ids, view);
             }
         };
 
@@ -66,19 +66,25 @@ public class ArticlesFragment extends Fragment {
         void getIds(String ids);
     }
 
-    public void performRequest(Bundle args, final getItemIds callback) {
+    public void performRequest(final Bundle args, final getItemIds callback) {
 
         Call<ArticleResponse> call;
-        call = apiService.getAllArticles(args.getInt("limit"), args.getString("category"));
+        call = apiService.getTopArticles(args.getInt("limit"), args.getString("category"));
+
         call.enqueue(new Callback<ArticleResponse>() {
             @Override
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
+                if(response.body() == null) return;
+
+                Log.d("URL", String.valueOf(call.request().url()));
+
                 ArrayList<Article> articleList = new ArrayList<>(response.body().getArticles());
                 ArrayList<String> articleIds = new ArrayList<>();
 
                 for (Article article : articleList) {
                     articleIds.add(String.valueOf(article.getId()));
                 }
+
                 callback.getIds(TextUtils.join(",", articleIds));
             }
 
@@ -89,17 +95,19 @@ public class ArticlesFragment extends Fragment {
         });
     }
 
-    public void performDetailsRequest(String ids, final View view, Bundle args) {
+    public void performDetailsRequest(String ids, final View view) {
 
         Call<ArticleDetailsResponse> call;
-        call = apiService.getAllArticlesDetails(ids, args.getInt("limit"), args.getString("category"));
+        call = apiService.getTopArticlesDetails(ids);
+
         call.enqueue(new Callback<ArticleDetailsResponse>() {
             @Override
             public void onResponse(Call<ArticleDetailsResponse> call, Response<ArticleDetailsResponse> response) {
+
                 Map<String, Article> map = response.body().getArticles();
                 ArrayList<Article> articleList = new ArrayList<>();
-                String regex = "\\/wiki\\/[0-9a-zA-z]+$";
 
+                String regex = "/wiki/[0-9a-zA-z]+$";
                 Pattern patt = Pattern.compile(regex);
 
                 for (Map.Entry<String, Article> entry : map.entrySet()) {
@@ -109,13 +117,14 @@ public class ArticlesFragment extends Fragment {
                         articleList.add(entry.getValue());
                     }
                 }
+
                 ListView lv = (ListView) view.findViewById(R.id.section_label);
-                lv.setAdapter(new ArticlesAdapter(articleList, getContext()));
+                ArticlesAdapter adapter = new ArticlesAdapter(articleList, getContext());
+                lv.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<ArticleDetailsResponse> call, Throwable t) {
-                Log.d("TAG", String.valueOf(call.request().url()));
                 Log.d("Error", t.toString());
             }
         });

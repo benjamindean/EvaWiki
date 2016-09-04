@@ -10,10 +10,15 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    @GET("Articles/List")
-    Call<ArticleResponse> getAllArticles(@Query("limit") int limit, @Query("category") String category);
+    @GET("Articles/Top")
+    Call<ArticleResponse> getTopArticles(
+            @Query("limit") int limit,
+            @Query("category") String category
+    );
 
     @GET("Articles/Details")
-    Call<ArticleDetailsResponse> getAllArticlesDetails(@Query("ids") String ids, @Query("limit") int limit, @Query("category") String category);
+    Call<ArticleDetailsResponse> getTopArticlesDetails(
+            @Query("ids") String ids
+    );
 
 }

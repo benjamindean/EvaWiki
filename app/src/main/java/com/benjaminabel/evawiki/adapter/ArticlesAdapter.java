@@ -51,8 +51,6 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
         viewHolder.abs.setText(article.getAbs());
         Picasso.with(getContext())
                 .load(article.getThumbnail())
-                .resize(200, 200)
-                .transform(new CircleTransform())
                 .into(viewHolder.thumb);
 
         return view;
