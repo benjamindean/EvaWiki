@@ -1,8 +1,11 @@
 package com.benjaminabel.evawiki.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -131,10 +134,24 @@ public class ArticlesFragment extends Fragment {
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Article article = (Article) adapterView.getItemAtPosition(i);
+
                         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+                        View textView = view.findViewById(R.id.article_title);
+                        Article article = (Article) adapterView.getItemAtPosition(i);
                         intent.putExtra("ArticleID", String.valueOf(article.getTitle()));
-                        startActivity(intent);
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            textView.setTransitionName("explode");
+
+                            Pair<View, String> pair2 = Pair.create(textView, textView.getTransitionName());
+                            ActivityOptionsCompat options = ActivityOptionsCompat.
+                                    makeSceneTransitionAnimation(getActivity(), pair2);
+                            startActivity(intent, options.toBundle());
+                        }
+                        else {
+                            startActivity(intent);
+                        }
+
                     }
                 });
                 lv.setAdapter(adapter);
