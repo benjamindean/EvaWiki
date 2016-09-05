@@ -1,17 +1,18 @@
 package com.benjaminabel.evawiki.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.benjaminabel.evawiki.R;
-import com.benjaminabel.evawiki.activity.MainActivity;
+import com.benjaminabel.evawiki.activity.ArticleDetailsActivity;
 import com.benjaminabel.evawiki.adapter.ArticlesAdapter;
 import com.benjaminabel.evawiki.model.Article;
 import com.benjaminabel.evawiki.model.ArticleDetailsResponse;
@@ -81,7 +82,7 @@ public class ArticlesFragment extends Fragment {
         call.enqueue(new Callback<ArticleResponse>() {
             @Override
             public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
-                if(response.body() == null) return;
+                if (response.body() == null) return;
 
                 Log.d("URL", String.valueOf(call.request().url()));
 
@@ -120,13 +121,22 @@ public class ArticlesFragment extends Fragment {
                 for (Map.Entry<String, Article> entry : map.entrySet()) {
                     Article item = entry.getValue();
 
-                    if(patt.matcher(item.getUrl()).matches()) {
+                    if (patt.matcher(item.getUrl()).matches()) {
                         articleList.add(entry.getValue());
                     }
                 }
 
                 ListView lv = (ListView) view.findViewById(R.id.section_label);
                 ArticlesAdapter adapter = new ArticlesAdapter(articleList, getContext());
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Article article = (Article) adapterView.getItemAtPosition(i);
+                        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+                        intent.putExtra("ArticleID", String.valueOf(article.getTitle()));
+                        startActivity(intent);
+                    }
+                });
                 lv.setAdapter(adapter);
             }
 

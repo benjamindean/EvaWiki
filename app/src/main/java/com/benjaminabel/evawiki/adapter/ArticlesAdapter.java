@@ -29,7 +29,7 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
     @NonNull
     @Override
     public View getView(int i, View view, @NonNull ViewGroup viewGroup) {
-        Article article = getItem(i);
+        final Article article = getItem(i);
         ArticleHolder viewHolder;
         if (view == null) {
             viewHolder = new ArticleHolder();
