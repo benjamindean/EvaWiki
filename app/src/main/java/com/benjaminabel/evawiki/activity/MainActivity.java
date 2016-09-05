@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,20 +24,14 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private SparseArray<String> pages = new SparseArray<>(); {
+        pages.put(0, "Evangelions");
+        pages.put(1, "Characters");
+        pages.put(2, "Movies");
+        pages.put(3, "Angels");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.setTabMode(tabLayout.MODE_SCROLLABLE);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
     }
 
@@ -90,54 +76,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-        public int LIMIT = 20;
+        int LIMIT = 20;
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return ArticlesFragment.newInstance("Evangelions", LIMIT);
-                case 1:
-                    return ArticlesFragment.newInstance("Characters", LIMIT);
-                case 2:
-                    return ArticlesFragment.newInstance("Movies", LIMIT);
-                case 3:
-                    return ArticlesFragment.newInstance("Angels", LIMIT);
-                default:
-                    return null;
-            }
-
+            return ArticlesFragment.newInstance(pages.get(position), LIMIT);
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return pages.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Evangelions";
-                case 1:
-                    return "Characters";
-                case 2:
-                    return "Movies";
-                case 3:
-                    return "Angels";
-            }
-            return null;
+            return pages.get(position);
         }
     }
 }
