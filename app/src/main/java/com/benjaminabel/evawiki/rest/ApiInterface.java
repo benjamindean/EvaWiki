@@ -1,5 +1,6 @@
 package com.benjaminabel.evawiki.rest;
 
+import com.benjaminabel.evawiki.model.ArticleContentResponse;
 import com.benjaminabel.evawiki.model.ArticleDetailsResponse;
 import com.benjaminabel.evawiki.model.ArticleResponse;
 
@@ -19,6 +20,11 @@ public interface ApiInterface {
     @GET("Articles/Details")
     Call<ArticleDetailsResponse> getTopArticlesDetails(
             @Query("ids") String ids
+    );
+
+    @GET("Articles/AsSimpleJson")
+    Call<ArticleContentResponse> getArticleContent (
+            @Query("id") String id
     );
 
 }
