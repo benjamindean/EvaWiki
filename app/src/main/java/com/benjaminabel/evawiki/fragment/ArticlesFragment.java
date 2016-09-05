@@ -33,7 +33,7 @@ public class ArticlesFragment extends Fragment {
     public ApiInterface apiService =
             ApiClient.getClient().create(ApiInterface.class);
 
-    public View view;
+    private View view;
 
     public ArticlesFragment() {
     }

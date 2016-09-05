@@ -1,6 +1,7 @@
 package com.benjaminabel.evawiki.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.model.Article;
 import com.benjaminabel.evawiki.utils.CircleTransform;
@@ -56,7 +58,9 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
                     .transform(new CircleTransform())
                     .into(viewHolder.thumb);
         } else {
-            viewHolder.thumb.setVisibility(View.GONE);
+            TextDrawable drawable = TextDrawable.builder()
+                    .buildRound(article.getTitle().substring(0, 1), Color.DKGRAY);
+            viewHolder.thumb.setImageDrawable(drawable);
         }
 
         return view;

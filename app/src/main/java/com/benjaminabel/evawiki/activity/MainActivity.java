@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private int LIMIT = 20;
     private SparseArray<String> pages = new SparseArray<>(); {
         pages.put(0, "Evangelions");
         pages.put(1, "Characters");
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-        int LIMIT = 20;
 
         @Override
         public Fragment getItem(int position) {
