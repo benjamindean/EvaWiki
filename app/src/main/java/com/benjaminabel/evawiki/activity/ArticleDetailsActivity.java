@@ -16,14 +16,14 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
-        TextView textView = (TextView) findViewById(R.id.textView);
+        TextView textView = (TextView) findViewById(R.id.article_details_title);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            textView.setTransitionName("explode");
+            textView.setTransitionName(getString(R.string.transition_article_details));
         }
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("ArticleID");
+        String id = intent.getStringExtra(getString(R.string.intent_article_id));
         textView.setText(id);
     }
 }

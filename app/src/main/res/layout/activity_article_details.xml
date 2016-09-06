@@ -11,10 +11,10 @@
     tools:context="com.benjaminabel.evawiki.activity.ArticleDetailsActivity">
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/article_details_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView" />
+        android:textColor="#040404"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </RelativeLayout>

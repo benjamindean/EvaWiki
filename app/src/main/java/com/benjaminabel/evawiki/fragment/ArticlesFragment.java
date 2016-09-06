@@ -34,7 +34,7 @@ import retrofit2.Response;
 
 public class ArticlesFragment extends Fragment {
 
-    public ApiInterface apiService =
+    private ApiInterface apiService =
             ApiClient.getClient().create(ApiInterface.class);
 
     private View view;
@@ -59,14 +59,12 @@ public class ArticlesFragment extends Fragment {
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_articles, container, false);
-
             final getItemIds callback = new getItemIds() {
                 @Override
                 public void getIds(String ids) {
                     performDetailsRequest(ids, view);
                 }
             };
-
             performRequest(args, callback);
         }
         return view;
@@ -106,6 +104,24 @@ public class ArticlesFragment extends Fragment {
         });
     }
 
+    private void onArticleClick(AdapterView<?> adapterView, View view, int i) {
+        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+        View textView = view.findViewById(R.id.article_title);
+        Article article = (Article) adapterView.getItemAtPosition(i);
+        intent.putExtra(getString(R.string.intent_article_id), String.valueOf(article.getTitle()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textView.setTransitionName(getString(R.string.transition_article_details));
+            Pair<View, String> pair2 = Pair.create(textView, textView.getTransitionName());
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pair2);
+            startActivity(intent, options.toBundle());
+        }
+        else {
+            startActivity(intent);
+        }
+
+    }
+
     public void performDetailsRequest(String ids, final View view) {
 
         Call<ArticleDetailsResponse> call;
@@ -123,38 +139,20 @@ public class ArticlesFragment extends Fragment {
 
                 for (Map.Entry<String, Article> entry : map.entrySet()) {
                     Article item = entry.getValue();
-
                     if (patt.matcher(item.getUrl()).matches()) {
                         articleList.add(entry.getValue());
                     }
                 }
 
-                ListView lv = (ListView) view.findViewById(R.id.section_label);
+                ListView listView = (ListView) view.findViewById(R.id.section_label);
                 ArticlesAdapter adapter = new ArticlesAdapter(articleList, getContext());
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-                        View textView = view.findViewById(R.id.article_title);
-                        Article article = (Article) adapterView.getItemAtPosition(i);
-                        intent.putExtra("ArticleID", String.valueOf(article.getTitle()));
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            textView.setTransitionName("explode");
-
-                            Pair<View, String> pair2 = Pair.create(textView, textView.getTransitionName());
-                            ActivityOptionsCompat options = ActivityOptionsCompat.
-                                    makeSceneTransitionAnimation(getActivity(), pair2);
-                            startActivity(intent, options.toBundle());
-                        }
-                        else {
-                            startActivity(intent);
-                        }
-
+                        onArticleClick(adapterView, view, i);
                     }
                 });
-                lv.setAdapter(adapter);
+                listView.setAdapter(adapter);
             }
 
             @Override
