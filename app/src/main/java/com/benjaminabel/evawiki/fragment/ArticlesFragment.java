@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.activity.ArticleDetailsActivity;
@@ -106,14 +108,20 @@ public class ArticlesFragment extends Fragment {
 
     private void onArticleClick(AdapterView<?> adapterView, View view, int i) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-        View textView = view.findViewById(R.id.article_title);
         Article article = (Article) adapterView.getItemAtPosition(i);
-        intent.putExtra(getString(R.string.intent_article_id), String.valueOf(article.getTitle()));
+
+        View textView = view.findViewById(R.id.article_title);
+        View thumbnail = view.findViewById(R.id.article_thumbnail);
+
+        intent.putExtra(getString(R.string.intent_article_title), String.valueOf(article.getTitle()));
+        intent.putExtra(getString(R.string.intent_article_thumbnail), String.valueOf(article.getThumbnail()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            textView.setTransitionName(getString(R.string.transition_article_details));
-            Pair<View, String> pair2 = Pair.create(textView, textView.getTransitionName());
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pair2);
+
+            Pair<View, String> title = Pair.create(textView, textView.getTransitionName());
+            Pair<View, String> thumb = Pair.create(thumbnail, thumbnail.getTransitionName());
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), title, thumb);
             startActivity(intent, options.toBundle());
         }
         else {

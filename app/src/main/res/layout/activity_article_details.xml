@@ -10,11 +10,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.benjaminabel.evawiki.activity.ArticleDetailsActivity">
 
+    <ImageView
+        android:id="@+id/article_details_thumbnail"
+        android:layout_centerHorizontal="true"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:layout_marginBottom="20sp"
+        android:transitionName="@string/transition_article_thumbnail"/>
+
     <TextView
         android:id="@+id/article_details_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#040404"
+        android:text="Article Title"
+        android:layout_below="@id/article_details_thumbnail"
+        android:transitionName="@string/transition_article_details"
+        android:layout_centerHorizontal="true"
         android:textSize="16sp"
         android:textStyle="bold" />
+
+
 </RelativeLayout>
