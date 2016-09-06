@@ -115,6 +115,7 @@ public class ArticlesFragment extends Fragment {
 
         intent.putExtra(getString(R.string.intent_article_title), String.valueOf(article.getTitle()));
         intent.putExtra(getString(R.string.intent_article_thumbnail), String.valueOf(article.getThumbnail()));
+        intent.putExtra("article_id", String.valueOf(article.getId()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 

@@ -3,14 +3,15 @@ package com.benjaminabel.evawiki.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class ArticleContentResponse {
 
     @SerializedName("sections")
-    public List<Article> content;
+    private List<ArticleContent> content;
 
-    public List<Article> getArticleContent() {
+    public List<ArticleContent> getArticleContent() {
         return content;
     }
 
