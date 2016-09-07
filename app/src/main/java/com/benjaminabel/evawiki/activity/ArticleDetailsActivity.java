@@ -2,22 +2,28 @@ package com.benjaminabel.evawiki.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.model.ArticleContent;
 import com.benjaminabel.evawiki.model.ArticleContentResponse;
+import com.benjaminabel.evawiki.model.ArticleTextContent;
 import com.benjaminabel.evawiki.rest.ApiClient;
 import com.benjaminabel.evawiki.rest.ApiInterface;
 import com.benjaminabel.evawiki.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +33,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
 
     private ApiInterface apiService =
             ApiClient.getClient().create(ApiInterface.class);
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_details);
 
         Intent intent = getIntent();
+        layout = (LinearLayout) findViewById(R.id.layout_details);
 
         TextView textView = (TextView) findViewById(R.id.article_details_title);
         ImageView imageView = (ImageView) findViewById(R.id.article_details_thumbnail);
@@ -59,7 +67,6 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     }
 
     public void setArticleContent(String id) {
-
         Call<ArticleContentResponse> call;
         call = apiService.getArticleContent(id);
 
@@ -70,7 +77,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 List<ArticleContent> map = response.body().getArticleContent();
 
                 for (ArticleContent element : map) {
-                    Log.d("ARTICLE", String.valueOf(element.getTitle()));
+                    layout.addView(createHeading(element.getTitle()));
+                    //layout.addView(createHeading(element.getContent().getText()));
                 }
 
             }
@@ -80,6 +88,19 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 Log.d("Error", t.toString());
             }
         });
+    }
+
+    private TextView createHeading(String text) {
+        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        final TextView textView = new TextView(this);
+        textView.setLayoutParams(lparams);
+        textView.setText(text);
+        textView.setTextSize(18);
+        textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+        return textView;
     }
 }
 
