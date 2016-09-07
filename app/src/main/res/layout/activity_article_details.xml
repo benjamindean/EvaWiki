@@ -16,11 +16,12 @@
 
         <ImageView
             android:id="@+id/article_details_thumbnail"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20sp"
-            android:transitionName="@string/transition_article_thumbnail" />
+            android:transitionName="@string/transition_article_thumbnail"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/article_details_title"

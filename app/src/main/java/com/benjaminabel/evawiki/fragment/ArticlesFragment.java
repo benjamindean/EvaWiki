@@ -12,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.activity.ArticleDetailsActivity;
@@ -36,15 +34,14 @@ import retrofit2.Response;
 
 public class ArticlesFragment extends Fragment {
 
-    private ApiInterface apiService =
-            ApiClient.getClient().create(ApiInterface.class);
-
+    private static ApiInterface apiService;
     private View view;
 
     public ArticlesFragment() {
     }
 
     public static ArticlesFragment newInstance(String category, int limit) {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
         ArticlesFragment fragment = new ArticlesFragment();
         Bundle args = new Bundle();
         args.putInt("limit", limit);
@@ -60,7 +57,7 @@ public class ArticlesFragment extends Fragment {
         final Bundle args = getArguments();
 
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_articles, container, false);
+            view = inflater.inflate(R.layout.fragment_articles_list, container, false);
             final getItemIds callback = new getItemIds() {
                 @Override
                 public void getIds(String ids) {
@@ -106,28 +103,15 @@ public class ArticlesFragment extends Fragment {
         });
     }
 
-    private void onArticleClick(AdapterView<?> adapterView, View view, int i) {
+    private void onArticleClick(AdapterView<?> adapterView, int i) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
         Article article = (Article) adapterView.getItemAtPosition(i);
 
-        View textView = view.findViewById(R.id.article_title);
-        View thumbnail = view.findViewById(R.id.article_thumbnail);
-
-        intent.putExtra(getString(R.string.intent_article_title), String.valueOf(article.getTitle()));
-        intent.putExtra(getString(R.string.intent_article_thumbnail), String.valueOf(article.getThumbnail()));
+        intent.putExtra(getString(R.string.intent_article_title), article.getTitle());
+        intent.putExtra(getString(R.string.intent_article_thumbnail), article.getThumbnail());
         intent.putExtra("article_id", String.valueOf(article.getId()));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            Pair<View, String> title = Pair.create(textView, textView.getTransitionName());
-            Pair<View, String> thumb = Pair.create(thumbnail, thumbnail.getTransitionName());
-
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), title, thumb);
-            startActivity(intent, options.toBundle());
-        }
-        else {
-            startActivity(intent);
-        }
+        startActivity(intent);
 
     }
 
@@ -158,7 +142,7 @@ public class ArticlesFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        onArticleClick(adapterView, view, i);
+                        onArticleClick(adapterView, i);
                     }
                 });
                 listView.setAdapter(adapter);
