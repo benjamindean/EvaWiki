@@ -1,11 +1,15 @@
 package com.benjaminabel.evawiki.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +35,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     private ApiInterface apiService =
             ApiClient.getClient().create(ApiInterface.class);
     private LinearLayout layout;
+    private LayoutInflater inflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         layout = (LinearLayout) findViewById(R.id.layout_details);
+        inflater = (LayoutInflater) getApplicationContext().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
 
         TextView textView = (TextView) findViewById(R.id.article_details_title);
         ImageView imageView = (ImageView) findViewById(R.id.article_details_thumbnail);
@@ -74,9 +81,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 List<ArticleContent> map = response.body().getArticleContent();
 
                 for (ArticleContent element : map) {
-                    layout.addView(createTextView(element.getTitle(), 18, TextView.TEXT_ALIGNMENT_CENTER, Typeface.BOLD));
+                    layout.addView(createTextView(element.getTitle(), R.layout.article_heading));
                     for(ArticleTextContent content : element.getContent()) {
-                        layout.addView(createTextView(content.getText(), 16, TextView.TEXT_ALIGNMENT_INHERIT, Typeface.NORMAL));
+                        layout.addView(createTextView(content.getText(), R.layout.article_paragraph));
                         Log.d("ARTICLE", String.valueOf(content.getText()));
                     }
                 }
@@ -89,18 +96,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private TextView createTextView(String text, int size, int alignment, int typeface) {
-        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        final TextView textView = new TextView(this);
-        textView.setLayoutParams(lparams);
+    private TextView createTextView(String text, int template) {
+        final TextView textView = (TextView) inflater.inflate(template, null);
         textView.setText(text);
-        textView.setTextSize(size);
-        textView.setTypeface(null, typeface);
-        textView.setTextAlignment(alignment);
-        textView.setPadding(0, 0, 0, 20);
         return textView;
     }
 }
