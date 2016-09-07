@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,9 +20,7 @@ import com.benjaminabel.evawiki.rest.ApiInterface;
 import com.benjaminabel.evawiki.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,10 +74,12 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 List<ArticleContent> map = response.body().getArticleContent();
 
                 for (ArticleContent element : map) {
-                    layout.addView(createHeading(element.getTitle()));
-                    //layout.addView(createHeading(element.getContent().getText()));
+                    layout.addView(createTextView(element.getTitle(), 18, TextView.TEXT_ALIGNMENT_CENTER, Typeface.BOLD));
+                    for(ArticleTextContent content : element.getContent()) {
+                        layout.addView(createTextView(content.getText(), 16, TextView.TEXT_ALIGNMENT_INHERIT, Typeface.NORMAL));
+                        Log.d("ARTICLE", String.valueOf(content.getText()));
+                    }
                 }
-
             }
 
             @Override
@@ -90,7 +89,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private TextView createHeading(String text) {
+    private TextView createTextView(String text, int size, int alignment, int typeface) {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -98,8 +97,10 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         final TextView textView = new TextView(this);
         textView.setLayoutParams(lparams);
         textView.setText(text);
-        textView.setTextSize(18);
-        textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+        textView.setTextSize(size);
+        textView.setTypeface(null, typeface);
+        textView.setTextAlignment(alignment);
+        textView.setPadding(0, 0, 0, 20);
         return textView;
     }
 }

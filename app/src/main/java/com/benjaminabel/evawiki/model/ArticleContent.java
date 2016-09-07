@@ -3,7 +3,6 @@ package com.benjaminabel.evawiki.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -14,11 +13,11 @@ public class ArticleContent {
     @SerializedName("level")
     private int level;
     @SerializedName("content")
-    private List<Object> content;
+    private List<ArticleTextContent> content;
     @SerializedName("images")
     private ArrayList images;
 
-    public ArticleContent(String title, int level, List<Object> content, ArrayList images) {
+    public ArticleContent(String title, int level, List<ArticleTextContent> content, ArrayList images) {
         this.title = title;
         this.level = level;
         this.content = content;
@@ -33,7 +32,7 @@ public class ArticleContent {
         return images;
     }
 
-    public List<Object> getContent() {
+    public List<ArticleTextContent> getContent() {
         return content;
     }
 
