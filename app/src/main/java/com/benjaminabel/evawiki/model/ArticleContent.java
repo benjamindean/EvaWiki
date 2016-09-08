@@ -2,7 +2,6 @@ package com.benjaminabel.evawiki.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,9 +14,9 @@ public class ArticleContent {
     @SerializedName("content")
     private List<ArticleTextContent> content;
     @SerializedName("images")
-    private ArrayList images;
+    private List<ArticleImagesContent> images;
 
-    public ArticleContent(String title, int level, List<ArticleTextContent> content, ArrayList images) {
+    public ArticleContent(String title, int level, List<ArticleTextContent> content, List<ArticleImagesContent> images) {
         this.title = title;
         this.level = level;
         this.content = content;
@@ -28,7 +27,7 @@ public class ArticleContent {
         return title;
     }
 
-    public ArrayList getImages() {
+    public List<ArticleImagesContent> getImages() {
         return images;
     }
 

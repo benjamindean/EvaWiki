@@ -15,6 +15,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.model.ArticleContent;
 import com.benjaminabel.evawiki.model.ArticleContentResponse;
+import com.benjaminabel.evawiki.model.ArticleImagesContent;
 import com.benjaminabel.evawiki.model.ArticleTextContent;
 import com.benjaminabel.evawiki.rest.ApiClient;
 import com.benjaminabel.evawiki.rest.ApiInterface;
@@ -58,7 +59,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                     .into(imageView);
         } else {
             TextDrawable drawable = TextDrawable.builder()
-                    .buildRound(title.substring(0, 1), Color.DKGRAY);
+                    .buildRect(title.substring(0, 1), Color.DKGRAY);
             imageView.setImageDrawable(drawable);
         }
 
@@ -75,18 +76,29 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArticleContentResponse>() {
             @Override
             public void onResponse(Call<ArticleContentResponse> call, Response<ArticleContentResponse> response) {
+                Log.d("URL", String.valueOf(call.request().url()));
                 List<ArticleContent> map = response.body().getArticleContent();
+                int index = 0;
                 for (ArticleContent element : map) {
-                    String articleTitle = element.getTitle();
-                    if(!Objects.equals(articleTitle, "")) {
-                        layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
+                    if (index != 0) {
+                        String articleTitle = element.getTitle();
+                        if (!Objects.equals(articleTitle, "")) {
+                            layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
+                        }
                     }
                     for(ArticleTextContent content : element.getContent()) {
                         String articleParagraph = content.getText();
                         if(!Objects.equals(articleParagraph, "")) {
-                            layout.addView(createTextView(content.getText(), R.layout.partial_article_paragraph));
+                            layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
                         }
                     }
+                    for (ArticleImagesContent images : element.getImages()) {
+                        String imageURL = images.getSrc();
+                        if(!Objects.equals(imageURL, "")) {
+                            layout.addView(createImageView(imageURL));
+                        }
+                    }
+                    index++;
                 }
             }
 
@@ -101,6 +113,14 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         TextView textView = (TextView) inflater.inflate(template, null);
         textView.setText(text);
         return textView;
+    }
+
+    private ImageView createImageView(String imageURL) {
+        ImageView imageView = (ImageView) inflater.inflate(R.layout.partial_article_image, null);
+        Picasso.with(getApplicationContext())
+                .load(imageURL)
+                .into(imageView);
+        return imageView;
     }
 }
 
