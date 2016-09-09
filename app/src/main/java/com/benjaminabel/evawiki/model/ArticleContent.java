@@ -9,6 +9,8 @@ public class ArticleContent {
 
     @SerializedName("title")
     private String title;
+    @SerializedName("type")
+    private String type;
     @SerializedName("level")
     private int level;
     @SerializedName("content")
@@ -16,8 +18,9 @@ public class ArticleContent {
     @SerializedName("images")
     private List<ArticleImagesContent> images;
 
-    public ArticleContent(String title, int level, List<ArticleTextContent> content, List<ArticleImagesContent> images) {
+    public ArticleContent(String title, String type, int level, List<ArticleTextContent> content, List<ArticleImagesContent> images) {
         this.title = title;
+        this.type = type;
         this.level = level;
         this.content = content;
         this.images = images;
@@ -33,6 +36,10 @@ public class ArticleContent {
 
     public List<ArticleTextContent> getContent() {
         return content;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getLevel() {

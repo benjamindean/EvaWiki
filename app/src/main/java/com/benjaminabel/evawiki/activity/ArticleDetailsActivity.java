@@ -82,13 +82,15 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 for (ArticleContent element : map) {
                     if (index != 0) {
                         String articleTitle = element.getTitle();
-                        if (!Objects.equals(articleTitle, "")) {
-                            layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
-                        }
+                        if ((!element.getContent().isEmpty()))
+                            if (!Objects.equals(articleTitle, "")) {
+                                layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
+                            }
                     }
                     for(ArticleTextContent content : element.getContent()) {
                         String articleParagraph = content.getText();
-                        if(!Objects.equals(articleParagraph, "")) {
+                        String type = content.getType();
+                        if(!Objects.equals(articleParagraph, "") && (!Objects.equals(type, "list"))) {
                             layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
                         }
                     }
@@ -118,7 +120,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     private ImageView createImageView(String imageURL) {
         ImageView imageView = (ImageView) inflater.inflate(R.layout.partial_article_image, null);
         Picasso.with(getApplicationContext())
-                .load(imageURL)
+                .load(imageURL.replaceAll("scale-to-width-down/([0-9])", "scale-to-width-down/500"))
                 .into(imageView);
         return imageView;
     }
