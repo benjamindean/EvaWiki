@@ -3,10 +3,12 @@ package com.benjaminabel.evawiki.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -96,8 +98,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                     }
                     for (ArticleImagesContent images : element.getImages()) {
                         String imageURL = images.getSrc();
+                        String caption = images.getCaption();
                         if(!Objects.equals(imageURL, "")) {
-                            layout.addView(createImageView(imageURL));
+                            layout.addView(createImageView(imageURL, caption));
                         }
                     }
                     index++;
@@ -117,12 +120,19 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         return textView;
     }
 
-    private ImageView createImageView(String imageURL) {
-        ImageView imageView = (ImageView) inflater.inflate(R.layout.partial_article_image, null);
+    private LinearLayout createImageView(String imageURL, String caption) {
+        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.partial_article_image, null);
+        ImageView imageView = (ImageView) linearLayout.findViewById(R.id.article_image);
+        TextView textView = (TextView) linearLayout.findViewById(R.id.article_image_caption);
         Picasso.with(getApplicationContext())
-                .load(imageURL.replaceAll("scale-to-width-down/([0-9])", "scale-to-width-down/500"))
+                .load(imageURL.replaceAll("scale-to-width-down/([0-9]+)", "scale-to-width-down/500"))
                 .into(imageView);
-        return imageView;
+        if(caption != null && !caption.isEmpty()) {
+            textView.setText(caption);
+        } else {
+            textView.setVisibility(View.GONE);
+        }
+        return linearLayout;
     }
 }
 
