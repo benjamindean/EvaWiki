@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.benjaminabel.evawiki.R;
+import com.benjaminabel.evawiki.fragment.ImageFragment;
 import com.benjaminabel.evawiki.model.ArticleContent;
 import com.benjaminabel.evawiki.model.ArticleContentResponse;
 import com.benjaminabel.evawiki.model.ArticleImagesContent;
@@ -119,7 +123,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         return textView;
     }
 
-    private LinearLayout createImageView(String imageURL, String caption) {
+    private LinearLayout createImageView(final String imageURL, String caption) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.partial_article_image, null);
         ImageView imageView = (ImageView) linearLayout.findViewById(R.id.article_image);
         TextView textView = (TextView) linearLayout.findViewById(R.id.article_image_caption);
@@ -131,7 +135,17 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         } else {
             textView.setVisibility(View.GONE);
         }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onImageClick(imageURL);
+            }
+        });
         return linearLayout;
+    }
+
+    private void onImageClick(String imageURL) {
+        Log.d("CLIKED", imageURL);
     }
 }
 
