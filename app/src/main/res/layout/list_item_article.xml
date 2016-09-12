@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:minHeight="88sp"
     android:orientation="horizontal"
-    android:paddingTop="16sp"
-    android:paddingBottom="16sp">
+    android:paddingBottom="16sp"
+    android:paddingTop="16sp">
 
     <LinearLayout
         android:id="@+id/thumbnail"
@@ -19,7 +19,7 @@
             android:id="@+id/article_thumbnail"
             android:layout_width="70sp"
             android:layout_height="70sp"
-            android:transitionName="@string/transition_article_thumbnail"/>
+            android:transitionName="@string/transition_article_thumbnail" />
 
     </LinearLayout>
 
@@ -28,22 +28,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/thumbnail"
-        android:transitionName="@string/transition_article_details"
         android:text="Text"
         android:textColor="#040404"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:transitionName="@string/transition_article_details" />
 
     <TextView
         android:id="@+id/article_abstract"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/article_title"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/thumbnail"
+        android:paddingRight="16sp"
         android:text="Test"
         android:textColor="#343434"
-        android:textSize="14sp"
-        android:paddingRight="16sp"
-        android:layout_centerVertical="true" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

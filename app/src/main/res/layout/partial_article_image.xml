@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:paddingBottom="20sp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="20sp">
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/article_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:contentDescription="Description"
         android:paddingBottom="20sp"
-        android:contentDescription="Description"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/article_image_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Caption"/>
+        android:text="Caption" />
 
 </LinearLayout>

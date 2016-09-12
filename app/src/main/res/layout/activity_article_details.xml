@@ -18,10 +18,10 @@
             android:id="@+id/article_details_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="200sp"
+            android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20sp"
-            android:transitionName="@string/transition_article_thumbnail"
-            android:layout_alignParentEnd="true" />
+            android:transitionName="@string/transition_article_thumbnail" />
 
         <TextView
             android:id="@+id/article_details_title"
@@ -29,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/article_details_thumbnail"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20sp"
             android:text="Article Title"
             android:textColor="#040404"
             android:textSize="30sp"
-            android:layout_marginBottom="20sp"
             android:textStyle="bold"
             android:transitionName="@string/transition_article_details" />
 
@@ -41,8 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/article_details_title"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"/>
 
     </RelativeLayout>
 </ScrollView>

@@ -1,11 +1,8 @@
 package com.benjaminabel.evawiki.fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,11 +64,6 @@ public class ArticlesFragment extends Fragment {
             performRequest(args, callback);
         }
         return view;
-    }
-
-
-    public interface getItemIds {
-        void getIds(String ids);
     }
 
     public void performRequest(final Bundle args, final getItemIds callback) {
@@ -153,5 +145,9 @@ public class ArticlesFragment extends Fragment {
                 Log.d("Error", t.toString());
             }
         });
+    }
+
+    public interface getItemIds {
+        void getIds(String ids);
     }
 }

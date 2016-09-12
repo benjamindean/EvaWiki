@@ -3,7 +3,6 @@ package com.benjaminabel.evawiki.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -89,17 +88,17 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                                 layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
                             }
                     }
-                    for(ArticleTextContent content : element.getContent()) {
+                    for (ArticleTextContent content : element.getContent()) {
                         String articleParagraph = content.getText();
                         String type = content.getType();
-                        if(!Objects.equals(articleParagraph, "") && (!Objects.equals(type, "list"))) {
+                        if (!Objects.equals(articleParagraph, "") && (!Objects.equals(type, "list"))) {
                             layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
                         }
                     }
                     for (ArticleImagesContent images : element.getImages()) {
                         String imageURL = images.getSrc();
                         String caption = images.getCaption();
-                        if(!Objects.equals(imageURL, "")) {
+                        if (!Objects.equals(imageURL, "")) {
                             layout.addView(createImageView(imageURL, caption));
                         }
                     }
@@ -127,7 +126,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         Picasso.with(getApplicationContext())
                 .load(imageURL.replaceAll("scale-to-width-down/([0-9]+)", "scale-to-width-down/500"))
                 .into(imageView);
-        if(caption != null && !caption.isEmpty()) {
+        if (caption != null && !caption.isEmpty()) {
             textView.setText(caption);
         } else {
             textView.setVisibility(View.GONE);

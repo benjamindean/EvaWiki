@@ -23,7 +23,7 @@ public interface ApiInterface {
     );
 
     @GET("Articles/AsSimpleJson")
-    Call<ArticleContentResponse> getArticleContent (
+    Call<ArticleContentResponse> getArticleContent(
             @Query("id") String id
     );
 
