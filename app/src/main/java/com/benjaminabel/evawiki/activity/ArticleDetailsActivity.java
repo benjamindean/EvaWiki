@@ -100,8 +100,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                         String type = content.getType();
                         if (!Objects.equals(articleParagraph, null) && (!Objects.equals(type, "list"))) {
                             layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
-                        }
-                        if (Objects.equals(type, "list")) {
+                        } else {
                             layout.removeView(lastHeading);
                         }
                     }
