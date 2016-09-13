@@ -26,6 +26,8 @@ import com.benjaminabel.evawiki.rest.ApiClient;
 import com.benjaminabel.evawiki.rest.ApiInterface;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -84,19 +86,23 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 Log.d("URL", String.valueOf(call.request().url()));
                 List<ArticleContent> map = response.body().getArticleContent();
                 int index = 0;
+                TextView lastHeading = null;
                 for (ArticleContent element : map) {
                     if (index != 0) {
                         String articleTitle = element.getTitle();
-                        if ((!element.getContent().isEmpty()))
-                            if (!Objects.equals(articleTitle, "")) {
-                                layout.addView(createTextView(articleTitle, R.layout.partial_article_heading));
-                            }
+                        if (!Objects.equals(articleTitle, "")) {
+                            lastHeading = createTextView(articleTitle, R.layout.partial_article_heading);
+                            layout.addView(lastHeading);
+                        }
                     }
                     for (ArticleTextContent content : element.getContent()) {
                         String articleParagraph = content.getText();
                         String type = content.getType();
-                        if (!Objects.equals(articleParagraph, "") && (!Objects.equals(type, "list"))) {
+                        if (!Objects.equals(articleParagraph, null) && (!Objects.equals(type, "list"))) {
                             layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
+                        }
+                        if (Objects.equals(type, "list")) {
+                            layout.removeView(lastHeading);
                         }
                     }
                     for (ArticleImagesContent images : element.getImages()) {
