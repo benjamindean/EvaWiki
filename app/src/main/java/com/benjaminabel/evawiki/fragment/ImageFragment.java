@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import com.benjaminabel.evawiki.R;
 import com.squareup.picasso.Picasso;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 public class ImageFragment extends Fragment {
 
@@ -27,7 +29,6 @@ public class ImageFragment extends Fragment {
     }
 
     public static ImageFragment newInstance(String value) {
-        Log.d("CLIKED", value);
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
         args.putString(IMAGE_URL, value);
@@ -48,6 +49,7 @@ public class ImageFragment extends Fragment {
         Picasso.with(getContext())
                 .load(imageURL)
                 .into(imageView);
+        PhotoViewAttacher mAttacher = new PhotoViewAttacher(imageView);
 
         return view;
     }
