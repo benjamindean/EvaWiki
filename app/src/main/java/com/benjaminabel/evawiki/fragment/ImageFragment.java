@@ -3,7 +3,6 @@ package com.benjaminabel.evawiki.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +45,7 @@ public class ImageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_image, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.full_size_image);
+
         Picasso.with(getContext())
                 .load(imageURL)
                 .into(imageView);

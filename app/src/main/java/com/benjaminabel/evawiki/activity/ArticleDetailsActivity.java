@@ -148,6 +148,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         ImageFragment imageFragment = ImageFragment.newInstance(imageURL);
         this.getSupportFragmentManager()
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add(android.R.id.content, imageFragment)
                 .addToBackStack(imageFragment.getClass().getSimpleName())
                 .commit();
