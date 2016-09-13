@@ -68,6 +68,7 @@ public class ArticlesFragment extends Fragment {
 
     public void performRequest(final Bundle args, final getItemIds callback) {
 
+        if (apiService == null) return;
         Call<ArticleResponse> call;
         call = apiService.getTopArticles(args.getInt("limit"), args.getString("category"));
 

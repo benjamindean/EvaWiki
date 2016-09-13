@@ -128,7 +128,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) linearLayout.findViewById(R.id.article_image);
         TextView textView = (TextView) linearLayout.findViewById(R.id.article_image_caption);
         Picasso.with(getApplicationContext())
-                .load(imageURL.replaceAll("scale-to-width-down/([0-9]+)", "scale-to-width-down/500"))
+                .load(imageURL)
                 .into(imageView);
         if (caption != null && !caption.isEmpty()) {
             textView.setText(caption);
@@ -145,7 +145,12 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     }
 
     private void onImageClick(String imageURL) {
-        Log.d("CLIKED", imageURL);
+        ImageFragment imageFragment = ImageFragment.newInstance(imageURL);
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .add(android.R.id.content, imageFragment)
+                .addToBackStack(imageFragment.getClass().getSimpleName())
+                .commit();
     }
 }
 

@@ -17,7 +17,7 @@ public class ArticleImagesContent {
     }
 
     public String getSrc() {
-        return src;
+        return src.replaceAll("scale-to-width-down/([0-9]+)", "scale-to-width-down/500");
     }
 
     public String getCaption() {
