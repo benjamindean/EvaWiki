@@ -66,7 +66,7 @@ public class ArticlesFragment extends Fragment {
         return view;
     }
 
-    public void performRequest(final Bundle args, final getItemIds callback) {
+    private void performRequest(final Bundle args, final getItemIds callback) {
 
         if (apiService == null) return;
         Call<ArticleResponse> call;
@@ -108,7 +108,7 @@ public class ArticlesFragment extends Fragment {
 
     }
 
-    public void performDetailsRequest(String ids, final View view) {
+    private void performDetailsRequest(String ids, final View view) {
 
         Call<ArticleDetailsResponse> call;
         call = apiService.getTopArticlesDetails(ids);

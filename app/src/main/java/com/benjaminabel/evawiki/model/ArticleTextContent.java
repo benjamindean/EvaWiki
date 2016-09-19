@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class ArticleTextContent {
 
     @SerializedName("type")
-    private String type;
+    private final String type;
     @SerializedName("text")
-    private String text;
+    private final String text;
 
     public ArticleTextContent(String type, String text) {
         this.type = type;

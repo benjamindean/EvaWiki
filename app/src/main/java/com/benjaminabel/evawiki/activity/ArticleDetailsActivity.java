@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,8 +23,6 @@ import com.benjaminabel.evawiki.model.ArticleTextContent;
 import com.benjaminabel.evawiki.rest.ApiClient;
 import com.benjaminabel.evawiki.rest.ApiInterface;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +72,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void setArticleContent(String id) {
+    private void setArticleContent(String id) {
         Call<ArticleContentResponse> call;
         call = apiService.getArticleContent(id);
 

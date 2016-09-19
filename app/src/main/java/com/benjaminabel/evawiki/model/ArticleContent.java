@@ -8,15 +8,15 @@ import java.util.List;
 public class ArticleContent {
 
     @SerializedName("title")
-    private String title;
+    private final String title;
     @SerializedName("type")
-    private String type;
+    private final String type;
     @SerializedName("level")
-    private int level;
+    private final int level;
     @SerializedName("content")
-    private List<ArticleTextContent> content;
+    private final List<ArticleTextContent> content;
     @SerializedName("images")
-    private List<ArticleImagesContent> images;
+    private final List<ArticleImagesContent> images;
 
     public ArticleContent(String title, String type, int level, List<ArticleTextContent> content, List<ArticleImagesContent> images) {
         this.title = title;

@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class ArticleImagesContent {
 
     @SerializedName("src")
-    private String src;
+    private final String src;
     @SerializedName("text")
-    private String caption;
+    private final String caption;
 
     public ArticleImagesContent(String src, String caption) {
         this.src = src;

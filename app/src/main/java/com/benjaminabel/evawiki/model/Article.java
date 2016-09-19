@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName;
 public class Article {
 
     @SerializedName("id")
-    private int article_id;
+    private final int article_id;
     @SerializedName("title")
-    private String title;
+    private final String title;
     @SerializedName("url")
-    private String url;
+    private final String url;
     @SerializedName("abstract")
-    private String abs;
+    private final String abs;
     @SerializedName("thumbnail")
-    private String thumbnail;
+    private final String thumbnail;
 
     public Article(int article_id, String title, String url, String abs, String thumbnail) {
         this.article_id = article_id;

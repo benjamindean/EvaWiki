@@ -8,7 +8,7 @@ import java.util.List;
 public class ArticleResponse {
 
     @SerializedName("items")
-    public List<Article> articles;
+    private List<Article> articles;
 
     public List<Article> getArticles() {
         return articles;

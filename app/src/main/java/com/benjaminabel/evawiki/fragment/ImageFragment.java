@@ -1,13 +1,11 @@
 package com.benjaminabel.evawiki.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toolbar;
 
 import com.benjaminabel.evawiki.R;
 import com.squareup.picasso.Picasso;
@@ -21,11 +19,6 @@ public class ImageFragment extends Fragment {
     private String imageURL;
 
     public ImageFragment() {
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     public static ImageFragment newInstance(String value) {

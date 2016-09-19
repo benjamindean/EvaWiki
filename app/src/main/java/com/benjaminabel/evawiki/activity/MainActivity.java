@@ -18,10 +18,7 @@ import com.benjaminabel.evawiki.fragment.ArticlesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    private int LIMIT = 20;
-    private SparseArray<String> pages = new SparseArray<>();
+    private final SparseArray<String> pages = new SparseArray<>();
     {
         pages.put(0, "Evangelions");
         pages.put(1, "Characters");
@@ -38,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -70,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            int LIMIT = 20;
             return ArticlesFragment.newInstance(pages.get(position), LIMIT);
         }
 
