@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.benjaminabel.evawiki.R;
-import com.benjaminabel.evawiki.fragment.ImageFragment;
 import com.benjaminabel.evawiki.model.ArticleContent;
 import com.benjaminabel.evawiki.model.ArticleContentResponse;
 import com.benjaminabel.evawiki.model.ArticleImagesContent;
@@ -152,19 +149,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
     }
 
     private void onImageClick(String imageURL) {
-        ImageFragment imageFragment = ImageFragment.newInstance(imageURL);
-        this.getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(android.R.id.content, imageFragment)
-                .addToBackStack(imageFragment.getClass().getSimpleName())
-                .commit();
-    }
-
-    public void setProgressBar(int view) {
-        if (progressBar != null) {
-            progressBar.setVisibility(view);
-        }
+        Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
+        intent.putExtra("image_url", imageURL);
+        startActivity(intent);
     }
 }
 
