@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -33,17 +35,19 @@ import retrofit2.Response;
 
 public class ArticleDetailsActivity extends AppCompatActivity {
 
-    private ApiInterface apiService;
+    private ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     private LinearLayout layout;
     private LayoutInflater inflater;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
-        apiService = ApiClient.getClient().create(ApiInterface.class);
         layout = (LinearLayout) findViewById(R.id.layout_details);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         inflater = (LayoutInflater) getApplicationContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE
         );
@@ -108,6 +112,9 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                     }
                     index++;
                 }
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -152,6 +159,12 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 .add(android.R.id.content, imageFragment)
                 .addToBackStack(imageFragment.getClass().getSimpleName())
                 .commit();
+    }
+
+    public void setProgressBar(int view) {
+        if (progressBar != null) {
+            progressBar.setVisibility(view);
+        }
     }
 }
 

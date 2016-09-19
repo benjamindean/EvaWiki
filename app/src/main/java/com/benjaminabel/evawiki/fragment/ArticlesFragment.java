@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -33,15 +32,14 @@ import retrofit2.Response;
 
 public class ArticlesFragment extends Fragment {
 
-    private static ApiInterface apiService;
+    private ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     private View view;
-    private LinearLayout progressBar;
+    private ProgressBar progressBar;
 
     public ArticlesFragment() {
     }
 
     public static ArticlesFragment newInstance(String category, int limit) {
-        apiService = ApiClient.getClient().create(ApiInterface.class);
         ArticlesFragment fragment = new ArticlesFragment();
         Bundle args = new Bundle();
         args.putInt("limit", limit);
@@ -58,8 +56,8 @@ public class ArticlesFragment extends Fragment {
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_articles_list, container, false);
-            progressBar = (LinearLayout) view.findViewById(R.id.progressBar);
-            setProgressBar(View.VISIBLE);
+            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
             final getItemIds callback = new getItemIds() {
                 @Override
                 public void getIds(String ids) {
@@ -145,7 +143,9 @@ public class ArticlesFragment extends Fragment {
                 });
 
                 listView.setAdapter(adapter);
-                setProgressBar(View.GONE);
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -159,9 +159,4 @@ public class ArticlesFragment extends Fragment {
         void getIds(String ids);
     }
 
-    public void setProgressBar(int view) {
-        if (progressBar != null) {
-            progressBar.setVisibility(view);
-        }
-    }
 }
