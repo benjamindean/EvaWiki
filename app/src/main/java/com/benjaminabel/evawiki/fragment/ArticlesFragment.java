@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.activity.ArticleDetailsActivity;
@@ -33,6 +35,7 @@ public class ArticlesFragment extends Fragment {
 
     private static ApiInterface apiService;
     private View view;
+    private LinearLayout progressBar;
 
     public ArticlesFragment() {
     }
@@ -55,6 +58,8 @@ public class ArticlesFragment extends Fragment {
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_articles_list, container, false);
+            progressBar = (LinearLayout) view.findViewById(R.id.progressBar);
+            setProgressBar(View.VISIBLE);
             final getItemIds callback = new getItemIds() {
                 @Override
                 public void getIds(String ids) {
@@ -138,7 +143,9 @@ public class ArticlesFragment extends Fragment {
                         onArticleClick(adapterView, i);
                     }
                 });
+
                 listView.setAdapter(adapter);
+                setProgressBar(View.GONE);
             }
 
             @Override
@@ -150,5 +157,11 @@ public class ArticlesFragment extends Fragment {
 
     public interface getItemIds {
         void getIds(String ids);
+    }
+
+    public void setProgressBar(int view) {
+        if (progressBar != null) {
+            progressBar.setVisibility(view);
+        }
     }
 }

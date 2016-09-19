@@ -69,7 +69,6 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         textView.setText(title);
 
         setArticleContent(intent.getStringExtra("article_id"));
-
     }
 
     private void setArticleContent(String id) {
