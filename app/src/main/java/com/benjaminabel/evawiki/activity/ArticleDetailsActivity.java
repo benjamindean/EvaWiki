@@ -93,8 +93,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                     }
                     for (ArticleTextContent content : element.getContent()) {
                         String articleParagraph = content.getText();
-                        String type = content.getType();
-                        if (!Objects.equals(articleParagraph, null) && (!Objects.equals(type, "list"))) {
+                        if (!Objects.equals(articleParagraph, null) && (!Objects.equals(content.getType(), "list"))) {
                             layout.addView(createTextView(articleParagraph, R.layout.partial_article_paragraph));
                         } else {
                             layout.removeView(lastHeading);
@@ -102,9 +101,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                     }
                     for (ArticleImagesContent images : element.getImages()) {
                         String imageURL = images.getSrc();
-                        String caption = images.getCaption();
-                        if (!Objects.equals(imageURL, "")) {
-                            layout.addView(createImageView(imageURL, caption));
+                        if (!Objects.equals(imageURL, "") && !(imageURL.contains("_Icon.png"))) {
+                            layout.addView(createImageView(imageURL, images.getCaption()));
                         }
                     }
                     index++;
@@ -127,7 +125,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         return textView;
     }
 
-    private LinearLayout createImageView(final String imageURL, String caption) {
+    private LinearLayout createImageView(final String imageURL, final String caption) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.partial_article_image, null);
         ImageView imageView = (ImageView) linearLayout.findViewById(R.id.article_image);
         TextView textView = (TextView) linearLayout.findViewById(R.id.article_image_caption);
@@ -142,15 +140,16 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onImageClick(imageURL);
+                onImageClick(imageURL, caption);
             }
         });
         return linearLayout;
     }
 
-    private void onImageClick(String imageURL) {
+    private void onImageClick(String imageURL, String caption) {
         Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
         intent.putExtra("image_url", imageURL);
+        intent.putExtra("image_caption", caption);
         startActivity(intent);
     }
 }

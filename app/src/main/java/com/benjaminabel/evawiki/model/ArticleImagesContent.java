@@ -7,7 +7,7 @@ public class ArticleImagesContent {
 
     @SerializedName("src")
     private final String src;
-    @SerializedName("text")
+    @SerializedName("caption")
     private final String caption;
 
     public ArticleImagesContent(String src, String caption) {

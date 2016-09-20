@@ -6,23 +6,25 @@
     tools:context="com.benjaminabel.evawiki.activity.ImageActivity">
 
     <ImageView
+        android:id="@+id/full_size_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/full_size_image"
         android:background="#c8000000" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:padding="20sp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20sp">
+
         <ImageButton
+            android:id="@+id/download_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/stat_sys_download"
             android:layout_alignParentEnd="true"
-            android:background="?android:attr/selectableItemBackground" />
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@android:drawable/stat_sys_download" />
     </RelativeLayout>
 
 </FrameLayout>
