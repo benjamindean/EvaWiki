@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.benjaminabel.evawiki.R;
@@ -19,7 +20,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class ImageActivity extends AppCompatActivity {
 
     private DownloadManager dm;
-    long call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,20 @@ public class ImageActivity extends AppCompatActivity {
         String imageCaption = intent.getStringExtra("image_caption");
 
         ImageView imageView = (ImageView) findViewById(R.id.full_size_image);
+        TextView imageCaptionView = (TextView) findViewById(R.id.full_size_image_caption);
+
+        if(!imageCaption.isEmpty()) {
+            imageCaptionView.setText(imageCaption);
+        }
+
+        if(!imageURL.isEmpty()) {
+            Picasso.with(getApplicationContext())
+                    .load(imageURL)
+                    .into(imageView);
+            new PhotoViewAttacher(imageView);
+        }
+
         final ImageButton download = (ImageButton) findViewById(R.id.download_image);
-
-        Picasso.with(getApplicationContext())
-                .load(imageURL)
-                .into(imageView);
-        new PhotoViewAttacher(imageView);
-
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

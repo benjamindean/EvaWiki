@@ -18,12 +18,11 @@
 
             <ImageView
                 android:id="@+id/article_details_thumbnail"
-                android:layout_width="match_parent"
                 android:layout_height="200sp"
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true"
                 android:layout_marginBottom="20sp"
-                android:paddingTop="10sp"
-                android:background="@color/colorPrimaryDark"
-                android:transitionName="@string/transition_article_thumbnail" />
+                android:background="@color/colorPrimaryDark"/>
 
             <TextView
                 android:id="@+id/article_details_title"
@@ -32,10 +31,9 @@
                 android:layout_marginBottom="20sp"
                 android:textAlignment="center"
                 android:text="Article Title"
-                android:textColor="@color/colorTextPrimary"
+                android:textColor="#040404"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                android:transitionName="@string/transition_article_details" />
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

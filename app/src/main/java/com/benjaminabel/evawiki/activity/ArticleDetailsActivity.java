@@ -58,8 +58,10 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         String thumbUrl = intent.getStringExtra(getString(R.string.intent_article_thumbnail));
 
         if (thumbUrl != null) {
+            String pattern = ("/revision/(.*)");
+            String fullImageURL = thumbUrl.replaceAll(pattern, "");
             Picasso.with(getApplicationContext())
-                    .load(thumbUrl)
+                    .load(fullImageURL)
                     .into(imageView);
         } else {
             TextDrawable drawable = TextDrawable.builder()
