@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class ArticleDetailsActivity extends AppCompatActivity {
 
-    private ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+    private ApiInterface apiService;
     private LinearLayout layout;
     private LayoutInflater inflater;
     private ProgressBar progressBar;
@@ -42,6 +42,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
 
+        apiService = ApiClient.getClient().create(ApiInterface.class);
         layout = (LinearLayout) findViewById(R.id.layout_details);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
