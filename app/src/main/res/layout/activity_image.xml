@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="?android:attr/selectableItemBackground"
             android:src="@android:drawable/stat_sys_download" />
     </RelativeLayout>
 
