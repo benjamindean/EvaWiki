@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "com.example.benjamin.evawiki"
+        applicationId "com.benjamin.evawiki"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
@@ -17,7 +17,7 @@ android {
             versionNameSuffix '-DEBUG'
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -123,14 +123,14 @@ public class ArticlesFragment extends Fragment {
                 Map<String, Article> map = response.body().getArticles();
                 ArrayList<Article> articleList = new ArrayList<>();
 
-                String regex = "/wiki/[0-9a-zA-z]+$";
-                Pattern patt = Pattern.compile(regex);
+                //String regex = "/wiki/[0-9a-zA-z]+$";
+                //Pattern patt = Pattern.compile(regex);
 
                 for (Map.Entry<String, Article> entry : map.entrySet()) {
                     Article item = entry.getValue();
-                    if (patt.matcher(item.getUrl()).matches()) {
+                    //if (patt.matcher(item.getUrl()).matches()) {
                         articleList.add(entry.getValue());
-                    }
+                    //}
                 }
 
                 ListView listView = (ListView) view.findViewById(R.id.section_label);
