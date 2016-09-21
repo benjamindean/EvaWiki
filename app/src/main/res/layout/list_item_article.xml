@@ -19,7 +19,7 @@
             android:id="@+id/article_thumbnail"
             android:layout_width="70sp"
             android:layout_height="70sp"
-            android:background="@drawable/small_image_bg" />
+            android:foreground="@drawable/small_image_bg" />
 
     </LinearLayout>
 
@@ -31,6 +31,7 @@
         android:text="Text"
         android:textColor="#040404"
         android:textSize="16sp"
+        android:paddingRight="16sp"
         android:textStyle="bold" />
 
     <TextView
