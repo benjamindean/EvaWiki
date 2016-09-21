@@ -14,12 +14,11 @@ import android.widget.ProgressBar;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.activity.ArticleDetailsActivity;
+import com.benjaminabel.evawiki.activity.MainActivity;
 import com.benjaminabel.evawiki.adapter.ArticlesAdapter;
 import com.benjaminabel.evawiki.model.Article;
 import com.benjaminabel.evawiki.model.ArticleDetailsResponse;
 import com.benjaminabel.evawiki.model.ArticleResponse;
-import com.benjaminabel.evawiki.rest.ApiClient;
-import com.benjaminabel.evawiki.rest.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,7 +30,6 @@ import retrofit2.Response;
 
 public class ArticlesFragment extends Fragment {
 
-    private ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     private View view;
     private ProgressBar progressBar;
 
@@ -70,9 +68,9 @@ public class ArticlesFragment extends Fragment {
 
     private void performRequest(final Bundle args, final getItemIds callback) {
 
-        if (apiService == null) return;
+        if (MainActivity.apiService == null) return;
         Call<ArticleResponse> call;
-        call = apiService.getTopArticles(args.getInt("limit"), args.getString("category"));
+        call = MainActivity.apiService.getTopArticles(args.getInt("limit"), args.getString("category"));
 
         call.enqueue(new Callback<ArticleResponse>() {
             @Override
@@ -113,7 +111,7 @@ public class ArticlesFragment extends Fragment {
     private void performDetailsRequest(String ids, final View view) {
 
         Call<ArticleDetailsResponse> call;
-        call = apiService.getTopArticlesDetails(ids);
+        call = MainActivity.apiService.getTopArticlesDetails(ids);
 
         call.enqueue(new Callback<ArticleDetailsResponse>() {
             @Override

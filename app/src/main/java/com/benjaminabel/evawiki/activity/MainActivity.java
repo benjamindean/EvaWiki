@@ -14,11 +14,14 @@ import android.view.MenuItem;
 
 import com.benjaminabel.evawiki.R;
 import com.benjaminabel.evawiki.fragment.ArticlesFragment;
+import com.benjaminabel.evawiki.rest.ApiClient;
+import com.benjaminabel.evawiki.rest.ApiInterface;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private final SparseArray<String> pages = new SparseArray<>();
+    public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
     {
         pages.put(0, "Evangelions");
