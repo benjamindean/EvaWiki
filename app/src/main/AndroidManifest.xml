@@ -23,9 +23,10 @@
         </activity>
         <activity
             android:name=".activity.ArticleDetailsActivity"
-            android:parentActivityName=".activity.MainActivity"/>
-        <activity android:name=".activity.ImageActivity"
-            android:theme="@style/AppTheme.Image"/>
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.ImageActivity"
+            android:theme="@style/AppTheme.Image" />
     </application>
 
 </manifest>

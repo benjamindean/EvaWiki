@@ -9,14 +9,14 @@
     <ImageView
         android:id="@+id/full_size_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
         android:background="#64000000"
+        android:orientation="horizontal"
         android:padding="20sp">
 
         <ImageButton
@@ -32,18 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:orientation="horizontal"
         android:background="#64000000"
+        android:orientation="horizontal"
         android:padding="20sp">
 
         <TextView
-            android:text="Image Caption"
-            android:textColor="#ffffff"
+            android:id="@+id/full_size_image_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/full_size_image_caption" />
+            android:layout_centerVertical="true"
+            android:text="Image Caption"
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
 

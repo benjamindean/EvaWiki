@@ -23,7 +23,6 @@ import com.benjaminabel.evawiki.rest.ApiInterface;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;

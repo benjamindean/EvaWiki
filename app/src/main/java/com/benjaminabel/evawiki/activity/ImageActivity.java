@@ -3,9 +3,9 @@ package com.benjaminabel.evawiki.activity;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,11 +33,11 @@ public class ImageActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.full_size_image);
         TextView imageCaptionView = (TextView) findViewById(R.id.full_size_image_caption);
 
-        if(!imageCaption.isEmpty()) {
+        if (!imageCaption.isEmpty()) {
             imageCaptionView.setText(imageCaption);
         }
 
-        if(!imageURL.isEmpty()) {
+        if (!imageURL.isEmpty()) {
             Picasso.with(getApplicationContext())
                     .load(imageURL)
                     .into(imageView);
@@ -66,7 +66,7 @@ public class ImageActivity extends AppCompatActivity {
         dm.enqueue(new DownloadManager.Request(imageURL)
                 .setAllowedNetworkTypes(
                         DownloadManager.Request.NETWORK_WIFI |
-                        DownloadManager.Request.NETWORK_MOBILE
+                                DownloadManager.Request.NETWORK_MOBILE
                 )
                 .setAllowedOverRoaming(false)
                 .setTitle(imageName)
@@ -77,7 +77,7 @@ public class ImageActivity extends AppCompatActivity {
                 ));
 
         Toast.makeText(
-                getApplicationContext (),
+                getApplicationContext(),
                 "Image saved to " + Environment.DIRECTORY_DOWNLOADS,
                 Toast.LENGTH_SHORT
         ).show();

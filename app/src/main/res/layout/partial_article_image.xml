@@ -10,17 +10,17 @@
         android:id="@+id/article_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="Description"
         android:layout_marginBottom="5sp"
+        android:contentDescription="Description"
         android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/article_image_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Caption"
         android:textColor="@color/colorTextPrimary"
-        android:gravity="center"
         android:textStyle="italic" />
 
 </LinearLayout>

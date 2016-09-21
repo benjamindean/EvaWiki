@@ -19,6 +19,7 @@ import com.benjaminabel.evawiki.fragment.ArticlesFragment;
 public class MainActivity extends AppCompatActivity {
 
     private final SparseArray<String> pages = new SparseArray<>();
+
     {
         pages.put(0, "Evangelions");
         pages.put(1, "Characters");
