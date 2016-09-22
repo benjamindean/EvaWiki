@@ -1,7 +1,10 @@
 package com.benjaminabel.evawiki.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +27,9 @@ import com.benjaminabel.evawiki.rest.ApiInterface;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final SparseArray<String> pages = new SparseArray<>();
+    private int LIMIT = 20;
     public static ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
+    private final SparseArray<String> pages = new SparseArray<>();
     {
         pages.put(0, "Evangelions");
         pages.put(1, "Characters");
@@ -49,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         });
         setSupportActionBar(toolbar);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        LIMIT = Integer.valueOf(prefs.getString("settings_limit", "20"));
+
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
@@ -59,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -74,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
             super(fm);
         }
 
+
+
         @Override
         public Fragment getItem(int position) {
-            int LIMIT = 20;
             return ArticlesFragment.newInstance(pages.get(position), LIMIT);
         }
 

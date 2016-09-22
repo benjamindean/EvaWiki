@@ -55,18 +55,12 @@ public class ArticlesFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_articles_list, container, false);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             progressBar.setVisibility(View.VISIBLE);
-            final getItemIds callback = new getItemIds() {
-                @Override
-                public void getIds(String ids) {
-                    performDetailsRequest(ids, view);
-                }
-            };
-            performRequest(args, callback);
+            performRequest(args);
         }
         return view;
     }
 
-    private void performRequest(final Bundle args, final getItemIds callback) {
+    private void performRequest(final Bundle args) {
 
         if (MainActivity.apiService == null) return;
         Call<ArticleResponse> call;
@@ -86,7 +80,7 @@ public class ArticlesFragment extends Fragment {
                     articleIds.add(String.valueOf(article.getId()));
                 }
 
-                callback.getIds(TextUtils.join(",", articleIds));
+                performDetailsRequest(TextUtils.join(",", articleIds), view);
             }
 
             @Override
@@ -145,9 +139,4 @@ public class ArticlesFragment extends Fragment {
             }
         });
     }
-
-    public interface getItemIds {
-        void getIds(String ids);
-    }
-
 }

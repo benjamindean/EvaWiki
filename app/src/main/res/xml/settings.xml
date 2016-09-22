@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="General Settings"
+        android:key="general_settings">
+
+        <ListPreference
+            android:defaultValue="-1"
+            android:entries="@array/limit_values"
+            android:entryValues="@array/limit_values"
+            android:key="settings_limit"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/settings_limit"
+            android:summary="Number of articles to show" />
+
+        <ListPreference
+            android:defaultValue="-1"
+            android:entries="@array/theme_titles"
+            android:entryValues="@array/theme_values"
+            android:key="settings_theme"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/settings_theme" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
