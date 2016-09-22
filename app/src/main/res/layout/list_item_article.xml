@@ -25,10 +25,12 @@
 
     <TextView
         android:id="@+id/article_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Text"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="#040404"
         android:textSize="16sp"
         android:paddingRight="16sp"
@@ -41,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/article_title"
         android:layout_centerVertical="true"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:layout_toRightOf="@+id/thumbnail"
         android:paddingRight="16sp"
         android:paddingLeft="0sp"
