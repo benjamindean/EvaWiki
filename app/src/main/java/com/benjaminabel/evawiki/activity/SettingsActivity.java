@@ -93,6 +93,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new MainPreferenceFragment()).commit();
     }
 
     @Override
@@ -115,12 +118,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public boolean onIsMultiPane() {
         return isXLargeTablet(this);
-    }
-
-    @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.pref_headers, target);
     }
 
     protected boolean isValidFragment(String fragmentName) {
